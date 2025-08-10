@@ -1,0 +1,54 @@
+[tool.poetry]
+name = "harassment-detection"
+version = "0.1.0"
+description = "Real-time harassment detection system for surveillance cameras"
+authors = ["Your Name <you@example.com>"]
+readme = "README.md"
+packages = [{include = "core"}, {include = "app"}]
+
+[tool.poetry.dependencies]
+python = ">=3.9,<3.12"
+opencv-python = "^4.9.0"
+opencv-contrib-python = "^4.9.0"
+numpy = "^1.24.3"
+ultralytics = "^8.2.0"
+torch = "^2.1.0"
+torchvision = "^0.16.0"
+pillow = "^10.2.0"
+ffmpeg-python = "^0.2.0"
+tqdm = "^4.66.1"
+matplotlib = "^3.8.2"
+pyyaml = "^6.0.1"
+fastapi = "^0.104.0"
+uvicorn = {extras = ["standard"], version = "^0.24.0"}
+websockets = "^12.0"
+python-multipart = "^0.0.6"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.4.0"
+black = "^23.0.0"
+flake8 = "^6.0.0"
+mypy = "^1.5.0"
+ipython = "^8.12.0"
+jupyter = "^1.0.0"
+
+[tool.poetry.extras]
+tensorflow = ["tensorflow", "tensorflow-hub"]
+
+[tool.poetry.scripts]
+harassment-detection = "app.main:main"
+test-components = "test_webcam:main"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 100
+target-version = ['py39']
+
+[tool.mypy]
+python_version = "3.9"
+warn_return_any = true
+warn_unused_configs = true
+ignore_missing_imports = true

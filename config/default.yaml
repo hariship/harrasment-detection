@@ -1,0 +1,69 @@
+# Default Configuration for Harassment Detection System
+
+video:
+  source: "webcam"  # Options: webcam, rtsp, file
+  webcam_id: 0
+  fps: 30
+  resolution: [1280, 720]
+  # RTSP settings (when source is 'rtsp')
+  rtsp_url: "rtsp://username:password@ip:port/stream"
+  # File settings (when source is 'file')
+  file_path: null
+
+yolo:
+  model: "yolov8n.pt"  # Options: yolov8n, yolov8s, yolov8m, yolov8l, yolov8x
+  confidence_threshold: 0.6  # Higher threshold for more stable detections
+  iou_threshold: 0.5
+  device: "cpu"  # Options: cpu, cuda, mps (for M1/M2 Macs)
+  enable_tracking: true
+
+action_detection:
+  model_type: "dummy"  # Options: dummy, movinet, custom_harassment
+  confidence_threshold: 0.6
+  
+  # MoViNet settings
+  movinet:
+    model_name: "movinet_a0_stream"
+    num_frames: 8
+    frame_step: 2
+  
+  # Dummy detector settings (for testing)
+  dummy:
+    detection_probability: 0.05  # Lower probability for less spam
+    harassment_probability: 0.02  # Very low harassment probability
+
+  # Custom model settings
+  custom:
+    model_path: "models/custom/harassment_detector.pt"
+    input_size: [224, 224]
+    num_frames: 16
+    preprocessing: "standard"
+
+detection:
+  harassment_actions:
+    - "raised_fist"
+    - "pointing_aggressively"  
+    - "throat_slash"
+    - "middle_finger"
+    - "fist_shake"
+    - "shoving_motion"
+    - "hitting_motion"
+    - "finger_pointing"
+    - "stop_hand"
+  # Neutral actions that should NOT trigger alerts
+  neutral_actions:
+    - "normal_gesture"
+    - "neutral_stance"
+    - "arms_crossed"
+    - "hands_on_hips"
+    - "waving_hands"
+  buffer_size: 30
+  min_detection_frames: 5
+
+display:
+  show_fps: true
+  show_detections: true
+  show_actions: true
+  bbox_color: [0, 255, 0]  # BGR format
+  text_color: [255, 255, 255]
+  font_scale: 0.6
